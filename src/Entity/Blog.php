@@ -17,33 +17,27 @@ class Blog
      */
     private $id;
 
-    public function getId()
-    {
-      return $this->id;
-    }
-
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $title;
 
-    public function setTitle($title)
-    {
-        $this->title = $title;
-
-        return $this;
-    }
-
-    public function getTitle()
-    {
-      return $this->title;
-    }
 
     /**
       * @ORM\Column(type="string", length=255)
     */
-
     private $author;
+
+      /**
+      * @ORM\Column(type="text")
+      */
+    private $content;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="blogs")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $category;
 
     public function getAuthor()
     {
@@ -57,11 +51,22 @@ class Blog
         return $this;
     }
 
-    /**
-      * @ORM\Column(type="text")
-    */
+    public function getTitle()
+    {
+      return $this->title;
+    }
 
-    private $content;
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    public function getId()
+    {
+      return $this->id;
+    }
 
     public function getContent()
     {
@@ -71,6 +76,18 @@ class Blog
     public function setContent($content)
     {
         $this->content = $content;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }

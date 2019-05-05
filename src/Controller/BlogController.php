@@ -7,6 +7,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use  Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use App\Entity\Blog;
+use App\Entity\Category;
 use Doctrine\ORM\EntityManagerInterface;
 
 class BlogController extends AbstractController
@@ -30,7 +31,10 @@ class BlogController extends AbstractController
      */
      public function create()
      {
-       return $this->render('create.html.twig');
+       $categories=$this->getDoctrine()->getRepository(Category::class)->findAll();
+       return $this->render('create.html.twig',[
+         'categories'=>$categories
+       ]);
      }
 
      /**
@@ -44,11 +48,13 @@ class BlogController extends AbstractController
         $author=$request->request->get('author');
         $date=$request->request->get('date');
         $content=$request->request->get('content');
+        $categoryId=$request->request->get('category_id');
 
+        $category=$this->getDoctrine()->getRepository(Category::class)->find($categoryId);
         $blog->setTitle($title);
         $blog->setAuthor($author);
         $blog->setContent($content);
-
+        $blog->setCategory($category);
 
 
         $em=$this->getDoctrine()->getManager();

@@ -17,10 +17,27 @@ class Blog
      */
     private $id;
 
+    public function getId()
+    {
+      return $this->id;
+    }
+
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $title;
+
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    public function getTitle()
+    {
+      return $this->title;
+    }
 
     /**
       * @ORM\Column(type="string", length=255)
@@ -28,16 +45,36 @@ class Blog
 
     private $author;
 
+    public function getAuthor()
+    {
+      return $this->author;
+    }
+
+    public function setAuthor($author)
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
     /**
       * @ORM\Column(type="text")
     */
 
     private $content;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
+    public function getContent()
+    {
+      return $this->content;
+    }
 
-    private $date;
+    public function setContent($content)
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+
 
 }
